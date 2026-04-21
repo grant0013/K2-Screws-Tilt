@@ -135,6 +135,10 @@ Every install automatically backs up `printer.cfg` (and the previous `screws_til
 
 Revert tries the on-printer backup first; if missing (e.g. after a firmware wipe), falls back to the local PC backup automatically.
 
+## Companion project
+
+[**KAMP-K2**](https://github.com/grant0013/KAMP-K2) — adaptive bed mesh + adaptive line purge for the same K2 family. Probes only the area your current print covers, scales proportionally from your `[bed_mesh] probe_count`. Same install UX as this project. If you'd like levelling *and* adaptive meshing, install both — they're designed to coexist.
+
 ## Credits
 
 - [Klipper](https://www.klipper3d.org/) — Kevin O'Connor and contributors; `screws_tilt_adjust.py` originally written by Rui Caridade + Matthew Lloyd, GPL v3
