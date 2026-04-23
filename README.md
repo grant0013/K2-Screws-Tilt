@@ -139,6 +139,15 @@ Revert tries the on-printer backup first; if missing (e.g. after a firmware wipe
 
 [**KAMP-K2**](https://github.com/grant0013/KAMP-K2) — adaptive bed mesh + adaptive line purge for the same K2 family. Probes only the area your current print covers, scales proportionally from your `[bed_mesh] probe_count`. Same install UX as this project. If you'd like levelling *and* adaptive meshing, install both — they're designed to coexist.
 
+## Support
+
+This is free software (GPL v3) and will stay that way. If it saved you time and you'd like to say thanks:
+
+- [Buy me a coffee](https://buymeacoffee.com/harktron)
+- BTC: `bc1q4tlvaufnaefshdjjuxm5xkcrdazefhap52hdja`
+
+No obligation — test results on K2 variants are just as welcome.
+
 ## Credits
 
 - [Klipper](https://www.klipper3d.org/) — Kevin O'Connor and contributors; `screws_tilt_adjust.py` originally written by Rui Caridade + Matthew Lloyd, GPL v3
