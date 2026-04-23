@@ -8,6 +8,8 @@
 
 Brings Klipper's manual bed-level helper — the one that probes each bed-screw position and tells you "front-left: turn 1/4 CW" — to the Creality K2 family. Uses your printer's existing strain-gauge probe. No additional hardware.
 
+> ❤️ **Enjoying K2-Screws-Tilt?** Free forever (GPL v3) — if it saved you time, [buy me a coffee](https://buymeacoffee.com/harktron) or tip BTC: `bc1q4tlvaufnaefshdjjuxm5xkcrdazefhap52hdja`. No obligation, test reports on K2 variants help just as much.
+
 ## The problem
 
 Upstream Klipper's [`screws_tilt_adjust.py`](https://www.klipper3d.org/Manual_Level.html#screws-tilt-adjust) uses the modern probe-helper API: the finalize callback receives `(phoming, offsets, positions)` with `positions` as objects that expose a `.bed_z` attribute.
@@ -138,15 +140,6 @@ Revert tries the on-printer backup first; if missing (e.g. after a firmware wipe
 ## Companion project
 
 [**KAMP-K2**](https://github.com/grant0013/KAMP-K2) — adaptive bed mesh + adaptive line purge for the same K2 family. Probes only the area your current print covers, scales proportionally from your `[bed_mesh] probe_count`. Same install UX as this project. If you'd like levelling *and* adaptive meshing, install both — they're designed to coexist.
-
-## Support
-
-This is free software (GPL v3) and will stay that way. If it saved you time and you'd like to say thanks:
-
-- [Buy me a coffee](https://buymeacoffee.com/harktron)
-- BTC: `bc1q4tlvaufnaefshdjjuxm5xkcrdazefhap52hdja`
-
-No obligation — test results on K2 variants are just as welcome.
 
 ## Credits
 
