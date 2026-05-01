@@ -146,6 +146,17 @@ Revert tries the on-printer backup first; if missing (e.g. after a firmware wipe
 - [Klipper](https://www.klipper3d.org/) — Kevin O'Connor and contributors; `screws_tilt_adjust.py` originally written by Rui Caridade + Matthew Lloyd, GPL v3
 - Companion to [KAMP-K2](https://github.com/grant0013/KAMP-K2) — adaptive mesh + line purge for the same K2 family
 
+## Want this done for you?
+
+Configuring Klipper yourself takes a weekend or two. If you'd rather skip the learning curve, [Hark Tech](https://harktech.co.uk/klipper-installation-service.html) — the maintainer of this project — offers professional Klipper installation, configuration and tuning for Creality K2 / K1 (and Ender, Voron-style and custom builds).
+
+- **Remote install over SSH:** from £80
+- **K2 / K1 full Klipper migration** (vendor features kept — camera, AMS/CFS, chamber, lights): from £120
+- **Mail-in install + tuning:** from £150
+- Includes input shaper sweep, pressure advance per material, bed mesh, slicer profiles for Orca / PrusaSlicer / Cura, and your config delivered in a git repo.
+
+Free pre-flight fit check on every job. UK-wide.
+
 ## Licence
 
 GPL v3, matching upstream Klipper. See [`LICENSE.md`](LICENSE.md).
