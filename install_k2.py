@@ -285,10 +285,25 @@ class Installer:
             self.log("printer.cfg: [screws_tilt_adjust] already present, "
                      "skipping", "ok")
             return
-        new_cfg = cfg.rstrip() + "\n" + SCREWS_SNIPPET + "\n"
+        block = SCREWS_SNIPPET.strip("\n")
+        # Klipper's SAVE_CONFIG autosave block (the trailing run of "#*#"
+        # lines) must stay LAST in the file -- it holds prtouch_v3's
+        # z_offset and the saved bed mesh. A naive append lands our section
+        # *after* it, and the next SAVE_CONFIG then rewrites/relocates the
+        # autosave region, which can drop z_offset and halt Klippy with
+        # "Option 'z_offset' in section 'prtouch_v3' must be specified".
+        # Insert ahead of that block instead.
+        m = re.search(r"^#\*#\s*<[-\s]*SAVE_CONFIG", cfg, re.MULTILINE)
+        if m:
+            head = cfg[:m.start()].rstrip()
+            autosave = cfg[m.start():]
+            new_cfg = head + "\n\n" + block + "\n\n" + autosave
+            where = "inserted [screws_tilt_adjust] before SAVE_CONFIG block"
+        else:
+            new_cfg = cfg.rstrip() + "\n\n" + block + "\n"
+            where = "appended [screws_tilt_adjust] section"
         self.write_remote(PRINTER_CFG, new_cfg)
-        self.log("printer.cfg: appended [screws_tilt_adjust] section "
-                 "with K2 260mm bed defaults", "ok")
+        self.log(f"printer.cfg: {where} with K2 260mm bed defaults", "ok")
 
     def verify_parse(self) -> None:
         _, out, err = self.run(
@@ -433,8 +448,10 @@ class Installer:
         else:
             # No backup -- just strip the section we added.
             cfg = self.read_remote(PRINTER_CFG)
+            # Stop at the next real section, the SAVE_CONFIG autosave block
+            # (#*# lines), or EOF -- never consume the autosave region.
             new_cfg = re.sub(
-                r"\n*\[screws_tilt_adjust\].*?(?=^\[|\Z)",
+                r"\n*\[screws_tilt_adjust\].*?(?=^\[|^#\*#|\Z)",
                 "\n",
                 cfg, count=1,
                 flags=re.MULTILINE | re.DOTALL)

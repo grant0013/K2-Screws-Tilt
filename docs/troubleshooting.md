@@ -1,5 +1,33 @@
 # Troubleshooting
 
+## `Option 'z_offset' in section 'prtouch_v3' must be specified`
+
+Klipper halts at startup because your printer's `[prtouch_v3]` probe has no
+saved `z_offset`. This installer never writes to `[prtouch_v3]` — it only
+adds `[screws_tilt_adjust]` — so the value was already missing or got lost
+from the `#*#` SAVE_CONFIG block at the bottom of `printer.cfg` (a firmware
+reset, a hand-edit, or restoring an older `printer.cfg` backup will do it).
+
+**Fix** (any one):
+
+1. Restore the auto-backup this installer made:
+   ```
+   python install_k2.py --host PRINTER_IP --revert
+   ```
+   It copies back the `printer.cfg` saved before the change.
+
+2. Re-run probe Z calibration so Klipper re-saves `z_offset`, then
+   `SAVE_CONFIG`.
+
+3. As a stop-gap, add `z_offset: 0` under `[prtouch_v3]` to let Klipper
+   boot, then calibrate properly.
+
+> Note: installer versions before the SAVE_CONFIG-aware fix appended
+> `[screws_tilt_adjust]` *after* the `#*#` autosave block; a later
+> `SAVE_CONFIG` could then clobber the autosave region (including
+> `z_offset`). Re-pull this repo and re-run the installer to get the fixed
+> placement.
+
 ## `SCREWS_TILT_CALCULATE: 'list' object has no attribute 'bed_z'`
 
 You're using upstream Klipper's `screws_tilt_adjust.py` instead of the K2-patched one. Upstream uses the modern 3-arg probe-helper callback (`phoming, offsets, positions`) with `.bed_z` attribute access; Creality's K2 fork still uses the older 2-arg form with list-based positions.
